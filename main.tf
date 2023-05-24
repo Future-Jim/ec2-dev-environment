@@ -58,7 +58,7 @@ resource "aws_security_group" "mtc_sg" {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["99.225.33.154/32"]
+    cidr_blocks = [var.local_ip]
   }
 
   egress {
@@ -74,12 +74,12 @@ resource "aws_security_group" "mtc_sg" {
 }
 
 resource "aws_key_pair" "mtc_auth" {
-  key_name   = "mtckey"
-  public_key = file("~/.ssh/mtckey.pub")
+  key_name   = var.key_name
+  public_key = file(var.key_location)
 }
 
 resource "aws_instance" "dev_node" {
-  instance_type          = "t2.micro"
+  instance_type          = var.instance_type
   ami                    = data.aws_ami.server_ami.id
   key_name               = aws_key_pair.mtc_auth.id
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
