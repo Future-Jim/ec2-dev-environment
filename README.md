@@ -16,10 +16,10 @@ The security group applied to the EC2 instance's subnet allows access from a par
 ### local_ip
 
 ## terraform.tfvars
-
+```
 host_os = "linux"
 local_ip = "ip.ip.ip.ip/32"
 key_name = "key_name"
 key_location = "~/.ssh/key_name.pub
-
+```
 
