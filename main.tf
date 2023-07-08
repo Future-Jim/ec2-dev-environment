@@ -12,7 +12,7 @@ resource "aws_vpc" "mtc_vpc" {
 resource "aws_subnet" "mtc_public_subnet" {
   vpc_id                  = aws_vpc.mtc_vpc.id
   cidr_block              = "10.123.1.0/24"
-  map_public_ip_on_launch = true
+  map_public_ip_on_launch = true //gives ip to all instances launched in subnet
   availability_zone       = "us-east-1a"
 
   tags = {
@@ -79,12 +79,12 @@ resource "aws_key_pair" "mtc_auth" {
 }
 
 resource "aws_instance" "dev_node" {
+  count = length(var.servers)
   instance_type          = var.instance_type
   ami                    = data.aws_ami.server_ami.id
   key_name               = aws_key_pair.mtc_auth.id
   vpc_security_group_ids = [aws_security_group.mtc_sg.id]
   subnet_id              = aws_subnet.mtc_public_subnet.id
-  user_data              = file("userdata.tpl")
   root_block_device {
     volume_size = 10
   }
@@ -92,7 +92,6 @@ resource "aws_instance" "dev_node" {
   tags = {
     name = "dev-node"
   }
-
 
   provisioner "local-exec" {
     command = templatefile("${var.host_os}-ssh-config.tpl", {

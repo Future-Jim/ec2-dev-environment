@@ -9,13 +9,20 @@ variable "local_ip" {
 
 variable "key_name" {
   type = string
+  default = "mtckey"
 }
 
 variable "key_location" {
   type = string
+  default = "~/.ssh/mtckey.pub"
 }
 
 variable "instance_type" {
   type = string
   default = "t2.micro"
+}
+
+variable "servers" {
+  type = list
+  default = ["system-1", "system-2", "system-3"]
 }
