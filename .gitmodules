@@ -1,0 +1,6 @@
+[submodule "modules/lamba-check-ec2"]
+	path = modules/lamba-check-ec2
+	url = git@github.com:Future-Jim/lamba-check-ec2.git
+[submodule "modules/aws-lambda-ec2-check"]
+	path = modules/aws-lambda-ec2-check
+	url = git@github.com:Future-Jim/aws-lambda-ec2-check.git

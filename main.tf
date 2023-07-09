@@ -102,3 +102,7 @@ resource "aws_instance" "dev_node" {
     interpreter = var.host_os == "windows" ? ["Powershell", "-Command"] : ["bash", "-c"]
   }
 }
+
+module "aws-ec2-lambda-check" {
+  source = "./modules/aws-lambda-ec2-check"
+}
